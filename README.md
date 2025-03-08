@@ -1,0 +1,2 @@
+# ballistics
+Pool based roguelite
