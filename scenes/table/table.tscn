@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://ypx7axgrhtf"]
+
+[ext_resource type="Texture2D" uid="uid://b8j4d3ios514j" path="res://assets/sprites/table.png" id="1_qavd0"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_qavd0"]
+a = Vector2(1001, 100)
+b = Vector2(199, 100)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ov72x"]
+a = Vector2(200, 99)
+b = Vector2(201, 502)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_qxbf1"]
+a = Vector2(200, 500)
+b = Vector2(1000, 500)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_wpgb8"]
+a = Vector2(1000, 500)
+b = Vector2(1000, 99)
+
+[node name="Table" type="Node2D"]
+
+[node name="TableSprite" type="Sprite2D" parent="."]
+position = Vector2(600, 300)
+texture = ExtResource("1_qavd0")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionTableTop" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("SegmentShape2D_qavd0")
+
+[node name="CollisionTableLeft" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("SegmentShape2D_ov72x")
+
+[node name="CollisionTableBottom" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("SegmentShape2D_qxbf1")
+
+[node name="CollisionTableRight" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("SegmentShape2D_wpgb8")
