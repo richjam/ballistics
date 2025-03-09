@@ -1,12 +1,17 @@
 extends RigidBody2D
 
-# Ball physics and behavior
+# Threshold to consider the ball as "stopped"
+@export var ball_stop_threshold: float = 2.0
+
 
 func _ready():
-    set_linear_velocity(Vector2(2000,1000))
+	set_linear_velocity((Vector2.ZERO))
 
 # Example function to apply a force to the ball
 func hit_ball(direction: Vector2, force: float) -> void:
-    apply_impulse(Vector2.ZERO, direction.normalized() * force)
+	var impulse = direction.normalized() * force
+	linear_velocity = impulse
 
-    
+
+func is_moving():
+	return linear_velocity.length() >= ball_stop_threshold

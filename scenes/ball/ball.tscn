@@ -4,8 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dxxnohdkusl8g" path="res://assets/sprites/ball.png" id="1_oqv3d"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oqv3d"]
-friction = 0.2
-bounce = 0.8
+bounce = 0.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5a6bx"]
 radius = 20.0

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwhvug18bg3o6"]
+
+[ext_resource type="Script" uid="uid://bw42hrhlmsmid" path="res://scripts/cue.gd" id="1_marva"]
+[ext_resource type="Texture2D" uid="uid://cf57m8lx30auo" path="res://assets/sprites/cue.png" id="2_urf0c"]
+
+[node name="Cue" type="Node2D"]
+script = ExtResource("1_marva")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(400, 0)
+texture = ExtResource("2_urf0c")
+
+[node name="AimLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0)
+default_color = Color(0.880147, 0.924134, 0.28545, 1)
