@@ -9,10 +9,13 @@
 [node name="Table" parent="." instance=ExtResource("2_k2fmo")]
 
 [node name="Ball" parent="." instance=ExtResource("1_iuonh")]
+position = Vector2(446, 204)
+
+[node name="Ball2" parent="." instance=ExtResource("1_iuonh")]
 position = Vector2(586, 292)
-mass = 57.275
-linear_damp = 0.2
-angular_damp = 1.0
+
+[node name="Ball3" parent="." instance=ExtResource("1_iuonh")]
+position = Vector2(417, 350)
 
 [node name="Cue" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("3_k2fmo")]
 ball = NodePath("../Ball")

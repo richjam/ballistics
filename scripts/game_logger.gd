@@ -1,10 +1,9 @@
 extends Node
-""" Game Logger
-Advanced logging system for the pool game with support for log levels, 
-timestamped messages, and component identification.
-"""
+## [u]Logger[/u] [br]
+## Logging system for the pool game with support for log levels, timestamped messages, and component identification.
 
-# Logging levels as enum
+
+## Logging levels as enum
 enum LogLevel {
 	DEBUG = 0,
 	INFO = 1,
@@ -13,31 +12,27 @@ enum LogLevel {
 	CRITICAL = 4
 }
 
-# Logger configuration
-@export var min_log_level: LogLevel = LogLevel.INFO  # Minimum level to display
-@export var show_timestamp: bool = true  # Include timestamp in logs
-@export var log_to_file: bool = false  # Save logs to file
-@export var log_file_path: String = "user://game.log"  # Path for log file
-@export var max_log_file_size: int = 1024 * 1024  # 1MB default
+@export var min_log_level: LogLevel = LogLevel.INFO  ## Minimum level to display
+@export var show_timestamp: bool = true  ## Include timestamp in logs
+@export var log_to_file: bool = false  ## Save logs to file
+@export var log_file_path: String = "user://game.log"  ## Path for log file
+@export var max_log_file_size: int = 1024 * 1024  ## 1MB default
 
-# Internal variables
-var _loggers: Dictionary = {}  # Component-specific loggers
+var _loggers: Dictionary = {}
 var _log_file: FileAccess = null
 var _default_logger: ComponentLogger
 
 
+## Initialize the logging system.
 func _ready() -> void:
-	""" Initialize the logging system.
-	"""
 	if log_to_file:
 		_setup_log_file()
 	
 	_default_logger = ComponentLogger.new(self, "Game")
 
 
+## Set up log file for writing.
 func _setup_log_file() -> void:
-	""" Set up log file for writing.
-	"""
 	_log_file = FileAccess.open(log_file_path, FileAccess.WRITE)
 	if _log_file:
 		var header = "=== Game Log Started: %s ===\n" % Time.get_datetime_string_from_system()
@@ -46,30 +41,25 @@ func _setup_log_file() -> void:
 		push_error("Failed to open log file: %s" % log_file_path)
 
 
+## Get a logger instance for a specific component. [br][br]
+## [b]Args[/b][br]
+## [param component_name]: The name of the component requesting a logger. [br][br]
+## [b]Returns[/b][br]
+## A ComponentLogger instance specific to the requesting component.
 func get_logger(component_name: String) -> ComponentLogger:
-	""" Get a logger instance for a specific component.
-	
-	Args:
-	    component_name: The name of the component requesting a logger.
-	
-	Returns:
-	    A ComponentLogger instance specific to the requesting component.
-	"""
 	if not _loggers.has(component_name):
 		_loggers[component_name] = ComponentLogger.new(self, component_name)
 	
 	return _loggers[component_name]
 
 
+## Write a log message if it meets the minimum level requirement. [br][br]
+## [b]Args[/b][br]
+## [param level]: The log severity level. [br]
+## [param component]: The component that generated the log. [br]
+## [param message]: The log message. [br]
+## [param details]: Optional additional structured data.
 func write_log(level: LogLevel, component: String, message: String, details: Dictionary = {}) -> void:
-	""" Write a log message if it meets the minimum level requirement.
-	
-	Args:
-	    level: The log severity level.
-	    component: The component that generated the log.
-	    message: The log message.
-	    details: Optional additional structured data.
-	"""
 	if level < min_log_level:
 		return
 	
@@ -90,15 +80,12 @@ func write_log(level: LogLevel, component: String, message: String, details: Dic
 		_log_file.store_string(formatted_message + "\n")
 
 
+## Format a log message for display/storage. [br][br]
+## [b]Args[/b][br]
+## [param log_msg]: The LogMessage object to format. [br][br]
+## [b]Returns[/b][br]
+## A formatted string representation of the log message.
 func _format_log_message(log_msg: LogMessage) -> String:
-	""" Format a log message for display/storage.
-	
-	Args:
-	    log_msg: The LogMessage object to format.
-	
-	Returns:
-	    A formatted string representation of the log message.
-	"""
 	var level_str = LogLevel.keys()[log_msg.level]
 	var timestamp_str = ""
 	
@@ -120,15 +107,14 @@ func _format_log_message(log_msg: LogMessage) -> String:
 	return basic_msg
 
 
-# Close file handle when game exits
+## Close file handle when game exits
 func _exit_tree() -> void:
 	if _log_file:
 		_log_file.close()
 
 
+## Class representing a structured log message.
 class LogMessage:
-	""" Class representing a structured log message.
-	"""
 	var level: LogLevel
 	var component: String
 	var message: String
@@ -143,9 +129,8 @@ class LogMessage:
 		details = p_details
 
 
+## Class providing component-specific logging interface.
 class ComponentLogger:
-	""" Class providing component-specific logging interface.
-	"""
 	var _logger: Node  # Reference to the main logger
 	var _component_name: String
 	
