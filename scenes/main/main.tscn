@@ -10,9 +10,9 @@
 
 [node name="Ball" parent="." instance=ExtResource("1_iuonh")]
 position = Vector2(586, 292)
-linear_damp = 0.1
-angular_damp = 0.1
+mass = 57.275
+linear_damp = 0.2
+angular_damp = 1.0
 
 [node name="Cue" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("3_k2fmo")]
 ball = NodePath("../Ball")
-max_force = null
