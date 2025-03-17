@@ -1,21 +1,44 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5qunaor78sxg"]
+[gd_scene load_steps=6 format=3 uid="uid://b5qunaor78sxg"]
 
 [ext_resource type="PackedScene" uid="uid://ot4bux2isq6m" path="res://scenes/ball/ball.tscn" id="1_iuonh"]
+[ext_resource type="Script" uid="uid://co2p6y5b801is" path="res://scripts/main.gd" id="1_l3cfh"]
 [ext_resource type="PackedScene" uid="uid://ypx7axgrhtf" path="res://scenes/table/table.tscn" id="2_k2fmo"]
 [ext_resource type="PackedScene" uid="uid://cwhvug18bg3o6" path="res://scenes/cue/cue.tscn" id="3_k2fmo"]
+[ext_resource type="PackedScene" uid="uid://dh8vv5wcrpyfk" path="res://scenes/pocket/pocket.tscn" id="5_6q06x"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_l3cfh")
 
 [node name="Table" parent="." instance=ExtResource("2_k2fmo")]
 
-[node name="Ball" parent="." instance=ExtResource("1_iuonh")]
+[node name="CueBall" parent="." instance=ExtResource("1_iuonh")]
 position = Vector2(446, 204)
 
 [node name="Ball2" parent="." instance=ExtResource("1_iuonh")]
 position = Vector2(586, 292)
+ball_id = 1
 
 [node name="Ball3" parent="." instance=ExtResource("1_iuonh")]
 position = Vector2(417, 350)
+ball_id = 2
 
 [node name="Cue" parent="." node_paths=PackedStringArray("ball") instance=ExtResource("3_k2fmo")]
-ball = NodePath("../Ball")
+ball = NodePath("../CueBall")
+
+[node name="PocketTopLeft" parent="." groups=["pockets"] instance=ExtResource("5_6q06x")]
+position = Vector2(199, 106)
+
+[node name="PocketBottomLeft" parent="." groups=["pockets"] instance=ExtResource("5_6q06x")]
+position = Vector2(196, 492)
+
+[node name="PocketBottomRight" parent="." groups=["pockets"] instance=ExtResource("5_6q06x")]
+position = Vector2(996, 494)
+
+[node name="PocketTopRight" parent="." groups=["pockets"] instance=ExtResource("5_6q06x")]
+position = Vector2(998, 88)
+
+[node name="PocketBottomCentre" parent="." groups=["pockets"] instance=ExtResource("5_6q06x")]
+position = Vector2(594, 512)
+
+[node name="PocketTopCentre" parent="." groups=["pockets"] instance=ExtResource("5_6q06x")]
+position = Vector2(600, 89)
